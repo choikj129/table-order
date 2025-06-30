@@ -33,7 +33,10 @@ import org.springframework.http.HttpStatus;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(
+    classes = com.flab.tableorder.Application.class,
+    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
+)
 @Slf4j
 @AutoConfigureMockMvc
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)

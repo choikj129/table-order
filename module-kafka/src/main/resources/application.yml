@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: tableorder
+  config:
+    import: kafka.yml, db.yml
+
+logging:
+  level:
+    org.springframework.context.annotation.AnnotationConfigApplicationContext: DEBUG

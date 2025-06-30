@@ -1,2 +1,2 @@
 rootProject.name = 'tableorder'
-include('module-api', 'module-kafka', 'module-database')
+include('module-common', 'module-api', 'module-kafka')

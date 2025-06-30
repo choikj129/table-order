@@ -25,23 +25,35 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderController {
     private final OrderService orderService;
 
-    @PostMapping("/table/{tableNum}")
-    public CompletableFuture<ResponseEntity<ResponseDTO<List<OrderDTO>>>> postOrder(@RequestBody List<OrderDTO> requestData, @PathVariable int tableNum) {
+    @GetMapping("/table/{tableNum}/status")
+    public CompletableFuture<ResponseEntity<ResponseDTO<String>>> getOrderStatus(@PathVariable int tableNum) {
         String storeId = StoreContext.getStoreId();
         return CompletableFuture.supplyAsync(() -> {
-            List<OrderDTO> orderListAll = orderService.orderMenu(requestData, storeId, tableNum);
+            String status = orderService.getStatus(storeId, tableNum);
 
-            ResponseDTO<List<OrderDTO>> responseData = new ResponseDTO<>(200, "", orderListAll);
+            ResponseDTO<String> responseData = new ResponseDTO<>(200, "", status);
+
+            return ResponseEntity.ok(responseData);
+        });
+    }
+
+    @PostMapping("/table/{tableNum}")
+    public CompletableFuture<ResponseEntity<ResponseDTO<String>>> postOrder(@RequestBody List<OrderDTO> requestData, @PathVariable int tableNum) {
+        String storeId = StoreContext.getStoreId();
+        return CompletableFuture.supplyAsync(() -> {
+            orderService.orderMenu(requestData, storeId, tableNum);
+
+            ResponseDTO<String> responseData = new ResponseDTO<>(200, "", "");
 
             return ResponseEntity.ok(responseData);
         });
     }
 
     @DeleteMapping("/table/{tableNum}")
-    public ResponseEntity<ResponseDTO<List<OrderDTO>>> clearTable(@PathVariable int tableNum) {
-        List<OrderDTO> orderListAll = orderService.clearOrderCache(StoreContext.getStoreId(), tableNum);
+    public ResponseEntity<ResponseDTO<String>> clearTable(@PathVariable int tableNum) {
+        orderService.clearOrderCache(StoreContext.getStoreId(), tableNum);
 
-        ResponseDTO<List<OrderDTO>> responseData = new ResponseDTO<>(200, "", orderListAll);
+        ResponseDTO<String> responseData = new ResponseDTO<>(200, "", "");
 
         return ResponseEntity.ok(responseData);
     }
@@ -58,6 +70,7 @@ public class OrderController {
     @PostMapping("/table/{tableNum}/call")
     public ResponseEntity<ResponseDTO> postCall(@RequestBody List<String> requestData, @PathVariable String tableNum) {
         orderService.orderCall(requestData, StoreContext.getStoreId(), Integer.parseInt(tableNum));
+
         ResponseDTO responseData = new ResponseDTO<>(200, "");
 
         return ResponseEntity.ok(responseData);

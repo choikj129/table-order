@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: tableorder
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: false
+  web:
+    resources:
+      add-mappings: false
+  config:
+    import: kafka.yml, db.yml
+
+server:
+  port: 4300
+
+logging:
+  level:
+    org:
+      hibernate: off
+      hibernate.SQL: off
+      hibernate.type.descriptor.sql.BasicBinder: off
+      hibernate.orm.jdbc.bind: off
+
+db:
+  data:
+    init: false
+    clear:
+      storeId: 681edb5be8f2f34d23ecf6b1

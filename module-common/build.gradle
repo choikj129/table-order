@@ -2,10 +2,5 @@ plugins {
     id 'core-convention'
     id 'java-convention'
     id 'spring-convention'
-    id 'kafka-convention'
     id 'jpa-convention'
-}
-
-dependencies {
-    implementation project(':module-common')
 }

@@ -3,6 +3,15 @@ plugins {
 }
 
 dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
+
+    implementation 'org.mapstruct:mapstruct:1.5.2.Final'
+
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.2.Final'
+    
     // 테스트 런타임 설정
+    implementation 'org.springframework.kafka:spring-kafka'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

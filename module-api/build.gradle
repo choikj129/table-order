@@ -7,5 +7,5 @@ plugins {
 }
 
 dependencies {
-    implementation project(':module-database')
+    implementation project(':module-common')
 }
